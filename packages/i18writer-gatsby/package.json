@@ -30,6 +30,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "pwa": "gatsby build && npx http-server -S --port 8080 -C localhost.cert -K localhost.key ./public",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
