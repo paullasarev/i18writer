@@ -1,0 +1,7 @@
+{
+  "name": "i18writer-web",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
