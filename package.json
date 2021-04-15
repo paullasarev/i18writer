@@ -5,6 +5,7 @@
   "scripts": {
     "start": "lerna run start:dev --stream",
     "build": "lerna run build --stream --concurrency=1",
+    "clean": "npx rimraf ./.next",
     "install": "lerna bootstrap",
     "test": "lerna run test --stream --concurrency=1"
   },
