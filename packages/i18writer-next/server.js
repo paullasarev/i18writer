@@ -1,4 +1,5 @@
-const https = require('https');
+// const https = require('https');
+// const http = require('http');
 const fs = require('fs');
 const { parse } = require("url");
 const next = require('next')
@@ -8,15 +9,20 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev, dir: __dirname })
 const handle = app.getRequestHandler()
 
+const server = require('httpolyglot');
 
 const options = {
   key: fs.readFileSync('localhost.key'),
   cert: fs.readFileSync('localhost.cert'),
-  // ca: [fs.readFileSync('root.crt')]
 };
 
 app.prepare().then(() => {
-  https.createServer(options, (req, res) => {
+  server.createServer(options, (req, res) => {
+    if (!req.socket.encrypted) {
+      res.writeHead(301, { "Location":`https://${req.headers.host}${req.url}`});
+      res.end();
+      return;
+    }
     const parsedUrl = parse(req.url, true);
     return handle(req, res, parsedUrl);
     // handle ....

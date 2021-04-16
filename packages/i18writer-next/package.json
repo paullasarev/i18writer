@@ -11,6 +11,7 @@
   "dependencies": {
     "@ionic/core": "^5.6.4",
     "cross-env": "^7.0.3",
+    "httpolyglot": "^0.1.2",
     "ionicons": "^5.5.1",
     "next": "latest",
     "next-pwa": "^5.2.9",
