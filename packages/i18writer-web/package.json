@@ -43,6 +43,7 @@
     "start": "cross-env PORT=3000 react-scripts start",
     "start:dev": "cross-env PORT=3000 react-scripts start",
     "build": "react-scripts build",
+    "build:https": "npm run build && npm run start:https",
     "start:https1": "npx http-server -S -C localhost.cert -K localhost.key ./build",
     "start:https": "cross-env NODE_ENV=production PORT=3000 node server.js",
     "test": "react-scripts test"

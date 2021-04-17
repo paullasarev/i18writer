@@ -8,11 +8,13 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonButton,
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
 import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 import './Menu.css';
+import { useCallback, useEffect, useState, FunctionComponent } from 'react';
 
 interface AppPage {
   url: string;
@@ -61,13 +63,41 @@ const appPages: AppPage[] = [
 ];
 
 const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+let deferredPrompt: any;
 
-const Menu: React.FC = () => {
+const Menu: FunctionComponent = () => {
   const location = useLocation();
+  const [installable, setInstallable] = useState(false);
+  const onInstall = useCallback(()=>{
+    console.log('onInstall')
+    setInstallable(false);
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (e: Event) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setInstallable(true);
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('INSTALL: Success');
+    });
+  }, []);
+
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
+        {installable && <IonButton onClick={onInstall}>Install PWA</IonButton>}
         <IonList id="inbox-list">
           <IonListHeader>Inbox</IonListHeader>
           <IonNote>hi@ionicframework.com</IonNote>
