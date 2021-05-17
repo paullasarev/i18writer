@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
+    "@capacitor/ios": "^2.4.7",
     "@httptoolkit/httpolyglot": "^1.0.0",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
@@ -46,7 +48,11 @@
     "build:https": "npm run build && npm run start:https",
     "start:https1": "npx http-server -S -C localhost.cert -K localhost.key ./build",
     "start:https": "cross-env NODE_ENV=production PORT=3000 node server.js",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "ios:open": "ionic capacitor open ios",
+    "ios:run": "ionic capacitor run ios",
+    "android:open": "ionic capacitor open android",
+    "android:run": "ionic capacitor run android"
   },
   "eslintConfig": {
     "extends": [
