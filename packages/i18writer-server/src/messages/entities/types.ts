@@ -3,3 +3,7 @@ export enum Language {
     German = 'German',
     Russian = 'Russian',
 }
+
+export interface MessageParameter {
+    name: string;
+}
