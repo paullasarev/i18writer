@@ -22,9 +22,16 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import {Provider} from "react-redux";
+import {configureStore} from "./configure-store";
+import {PersistGate} from 'redux-persist/integration/react';
+
+const {store, persistor} = configureStore();
 
 const App: React.FC = () => {
   return (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
     <IonApp>
       <IonReactRouter>
         <IonSplitPane contentId="main">
@@ -40,6 +47,8 @@ const App: React.FC = () => {
         </IonSplitPane>
       </IonReactRouter>
     </IonApp>
+    </PersistGate>
+  </Provider>
   );
 };
 
